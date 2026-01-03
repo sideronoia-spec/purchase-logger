@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Expense Logger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+<h2>📅 Today's Expense</h2>
+
+<form method="POST">
+  <input type="date" name="date" value="{{ today }}" required>
+  <input type="number" name="amount" placeholder="Enter amount" required>
+  <button>Save</button>
+</form>
+
+
+<hr>
+
+<h2>📜 History</h2>
+
+<table>
+<tr><th>Date</th><th>₹</th><th>❌</th></tr>
+{% for e in expenses %}
+<tr>
+  <td>{{ e.date }}</td>
+  <td>{{ e.amount }}</td>
+  <td>
+    <a href="/delete/{{ e._id }}">
+      <button style="background:#ff4d4d;">X</button>
+    </a>
+  </td>
+</tr>
+{% endfor %}
+</table>
+
+<div class="total-box">
+  Total Spent: ₹ {{ total }}
+</div>
+
+</div>
+
+</body>
+</html>
